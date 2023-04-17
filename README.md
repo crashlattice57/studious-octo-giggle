@@ -44,4 +44,9 @@
 
 ## EDA
 
-- 
+- ![alt text](https://github.com/crashlattice57/studious-octo-giggle/blob/main/attacks_by_month.png)
+- ![alt text](https://github.com/crashlattice57/studious-octo-giggle/blob/main/Count_By_Categories.png)
+
+## Dashboard Creation
+
+- Created a Dashboard using streamlit and tested hosting the dashboard via heroku
