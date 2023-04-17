@@ -22,6 +22,7 @@ category = st.sidebar.multiselect(
     "Select Category:",
     options=df["Category"].unique(),
     default=df["Category"].unique()
+
 )
 
 sponsor = st.sidebar.multiselect(
@@ -30,17 +31,11 @@ sponsor = st.sidebar.multiselect(
     default=df["Sponsor"].unique()
 )
 
-affiliations = st.sidebar.multiselect(
-    "Select Attack Affiliation:",
-    options=df["Affiliations"].unique(),
-    default=df["Affiliations"].unique()
-)
-
 df_selection = df.query("Category == @category &"
-                        " Sponsor == @sponsor &"
-                        " Affiliations == @affiliations")
+                        " Sponsor == @sponsor"
+                        )
 
-#st.dataframe(df_selection)
+# st.dataframe(df_selection)
 
 ## -----------------------------------  MAINPAGE ------------------------ ##
 st.title("Cyber Attack Dashboard")
@@ -70,7 +65,7 @@ st.markdown("---")
 
 attacks_by_year = (df_selection.groupby(by=["Year"])["Title"].nunique())
 fig_attacks_by_year = px.line(attacks_by_year,
-                              y="Category",
+                              y="Title",
                               x=attacks_by_year.index,
                               orientation="h",
                               title="<b>Attacks by Year</b>",
@@ -80,4 +75,35 @@ fig_attacks_by_year = px.line(attacks_by_year,
 fig_attacks_by_year.update_layout(plot_bgcolor="rgba(0,0,0,0)",
                                   xaxis=(dict(showgrid=False)))
 
-st.plotly_chart(fig_attacks_by_year)
+## Target Category by Attack Sponsor Chart ##
+
+categories_by_sponsor = (df_selection.groupby(by=["Category"])["Sponsor"].nunique())
+fig_categories_by_sponsor = px.bar(categories_by_sponsor,
+                                   x="Sponsor",
+                                   y=categories_by_sponsor.index,
+                                   orientation="h",
+                                   title="<b>Target Category by Attack Sponsor</b>",
+                                   color_discrete_sequence=["#0083B8"] * len(categories_by_sponsor),
+                                   template="plotly_white")
+
+fig_categories_by_sponsor.update_layout(plot_bgcolor="rgba(0,0,0,0)",
+                                        xaxis=(dict(showgrid=False)))
+
+##Plot Charts on same axis
+
+left_column, right_column = st.columns(2)
+left_column.plotly_chart(fig_attacks_by_year, use_container_width=True)
+right_column.plotly_chart(fig_categories_by_sponsor, use_container_width=True)
+
+
+# HIDE STREAMLIT STYLE ##
+
+# ---- HIDE STREAMLIT STYLE ----
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)

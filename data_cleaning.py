@@ -40,6 +40,10 @@ def clean_data():
     # Split Response Column to identify response action
     df["Response"] = df["Response"].apply(lambda x: str(x).split(" ")[0])
 
+    #Remove bad values from the Category Column that don't make sense
+
+    df = df[df["Category"].isin(["Government", "Private sector", "Civil society", "Military", "Espionage"])]
+
     return df
 
 df = clean_data()
