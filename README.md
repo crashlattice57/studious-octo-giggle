@@ -1,8 +1,8 @@
 # Data Science State-Sponsored-Cyber Attacks: Project Overview
 
-- Created a dashboard that analyzes the Kaggle Dataset
+- Create a dashboard that analyzes the Kaggle Dataset
 - Engineered Columns and conducted EDA to discover insights 
-- Built clientfacing Streamlit Dashboard using heroku  
+- Built clientfacing Streamlit Dashboard using heroku
 
 
 ## Code and Resources Used
@@ -50,3 +50,4 @@
 ## Dashboard Creation
 
 - Created a Dashboard using streamlit and tested hosting the dashboard via heroku
+- ![alt text](https://github.com/crashlattice57/studious-octo-giggle/blob/main/Dashboard_Screenshot.png)
